@@ -12,14 +12,9 @@ Backpack::Backpack(i64 capacity) :
 Backpack::Backpack(i64 capacity, const std::initializer_list<Item>& items) :
     Backpack(capacity)
 {
-    items_ = items;
-    items_.push_back(Item(1, 0));
-
-    std::sort(
-        items_.begin(),
-        items_.end(),
-        [](const Item& lhs, const Item& rhs) { return lhs.getCost() > rhs.getCost(); }
-    );
+    this->items_ = items;
+    this->items_.push_back(Item());
+	this->initItems();
 }
 
 i64 Backpack::getCapacity() const noexcept
@@ -68,10 +63,6 @@ State Backpack::run()
                 {
                     queue.push(get);
                 }
-                else
-                {
-                    std::cout << "No way" << std::endl;
-                }
             }
 
             skip.updateEstimation(items_[idx + 1]);
@@ -79,10 +70,6 @@ State Backpack::run()
             if (skip.getCost() >= best.getCost())
             {
                 queue.push(skip);
-            }
-            else
-            {
-                std::cout << "No way" << std::endl;
             }
         }
         else
@@ -95,4 +82,18 @@ State Backpack::run()
     }
 
     return best;
+}
+
+void Backpack::initItems()
+{
+	for (size_t i = 0; i < items_.size(); ++i)
+	{
+		this->items_[i].setIdx(i);
+	}
+
+	std::sort(
+		this->items_.begin(),
+		this->items_.end(),
+		[](const Item& lhs, const Item& rhs) { return lhs.getCost() > rhs.getCost(); }
+	);
 }

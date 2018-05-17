@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "Item.h"
 
+Item::Item() :
+	mass_(1),
+	value_(0)
+{
+}
+
 Item::Item(i64 mass, i64 value) :
     mass_(mass),
     value_(value),
@@ -32,4 +38,14 @@ float Item::getCost() const noexcept
 void Item::setIdx(size_t value) noexcept
 {
     idx_ = value;
+}
+
+std::string Item::toString() const
+{
+	std::string result = "Вещь №";
+	result += std::to_string(this->idx_ + 1) + 
+		": Масса: " + std::to_string(this->mass_) +
+		", Стоимость: " + std::to_string(this->value_);
+	
+	return result;
 }

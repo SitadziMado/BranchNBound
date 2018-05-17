@@ -12,6 +12,26 @@ State::State(const Backpack& parent) :
 {
 }
 
+std::vector<Item*>::iterator State::begin() noexcept
+{
+	return used_.begin();
+}
+
+std::vector<Item*>::iterator State::end() noexcept
+{
+	return used_.end();
+}
+
+std::vector<Item*>::const_iterator State::cbegin() const noexcept
+{
+	return used_.cbegin();
+}
+
+std::vector<Item*>::const_iterator State::cend() const noexcept
+{
+	return used_.cend();
+}
+
 size_t State::nextItem() noexcept
 {
     return idx_++;
@@ -47,7 +67,7 @@ void State::updateEstimation(const Item& next)
 
     if (spaceLeft)
     {
-        this->estimation_ = (float)next.getValue() / spaceLeft;
+		this->estimation_ = next.getCost() * spaceLeft; // (float)next.getValue() / spaceLeft;
     }
     else
     {

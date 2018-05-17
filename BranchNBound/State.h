@@ -12,7 +12,11 @@ class State
 public:
     State(const Backpack& parent);
 
-    size_t nextItem() noexcept;
+	std::vector<Item*>::iterator begin() noexcept;
+	std::vector<Item*>::iterator end() noexcept;
+	std::vector<Item*>::const_iterator cbegin() const noexcept;
+	std::vector<Item*>::const_iterator cend() const noexcept;
+	size_t nextItem() noexcept;
     float getCost() const noexcept;
     bool tryPush(Item& item);
     void updateEstimation(const Item& next);
