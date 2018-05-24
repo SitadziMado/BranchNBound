@@ -1,17 +1,18 @@
 #include "stdafx.h"
 #include "Item.h"
 
-Item::Item() :
-	mass_(1),
-	value_(0)
-{
-}
-
 Item::Item(i64 mass, i64 value) :
     mass_(mass),
     value_(value),
     idx_(NonIndexed),
     cost_((float)value / mass)
+{
+}
+
+Item::Item() :
+    Item(1, 0)
+    // mass_(1),
+    // value_(0)
 {
 }
 
